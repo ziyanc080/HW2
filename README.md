@@ -20,7 +20,7 @@ Write several functions with the same name ```myfunction``` in [cpplib.cc](src/l
 Examples:
 
 - input: (3, 5), output: 15
-- input: (“abc”, “efg”), output: “abcefg”
+- input: (“abc”, “efg”), output: “abcdefg”
 - input: (“EE”, 599), output: “EE599”
 
 Write several tests using GTest for your function in [tests/q1_student_test.cc](tests/q1_student_test.cc).
@@ -29,6 +29,8 @@ Please create your test cases and run the following command to verify the functi
 ```
 bazel test tests:q1_student_test
 ```
+Time Complexity Analysis:
+Since there is no loop at each function, only arithmetic operation is used which takes O(1) time. Hence, the time complexity for each function is O(1).
 
 ## Question 2 (10 Points. Easy)
 
@@ -39,6 +41,13 @@ How would you find the size of a non-dynamic array? (We are asking about an arra
 - An array of floats
 
 Answer:
+Firstly, we use pointers to read to start and end address of the array, POINT_START an POINT_END.
+After that, we can calculate the size occupied by the array in memory store space ARRSPACE = POINT_END - POINT_START.
+For integers, each interger takes 4 byte, the number of items in the array = ARRSPACE / 4Byte
+For chars, each char takes 1 byte, the number of items in the array = ARRSPACE / 1Byte
+For floats, each float takes 4 byte, the number os items in the array = ARRSPACE / 4Byte
+
+Hence, the time complexity for each method should be O(1) since we only have arithmetic operation.
 
 ## Question 3 (10 Points. Easy)
 
@@ -64,6 +73,10 @@ Please create your test cases and run the following command to verify the functi
 bazel test tests:q3_student_test
 ```
 
+Time Complexity Analysis:
+Since there is no loop at each function, only arithmetic operation is used, which takes O(1) time. Hence, the time complexity for each function is O(1).
+
+
 ## Question 4 (20 Points. Easy)
 
 - Write a function that takes a vector of integers as input. The output is the same vector where all duplicates are removed. Note that the output is the same vector means the function's return type should be void and do the modifications on the input vector.
@@ -79,7 +92,7 @@ bazel test tests:q3_student_test
   - Example: before: [1, 2, 3], after:  [3, 2, 1]
 - Write a function ```void CPPLib::OddVector(std::vector<int> &input)``` that takes a vector of integers as input. The output should be the same vector where all even numbers are removed.
   - Example: before: [1, 2, 3], after: [1, 3]
-- Write a function ```std::vector<int> CPPLib::UnionVectors(std::vector<int> &input1, std::vector<int> &input2)``` that takes two vectors v1 and v2 and returns a new vector that is the **union** of the values in v1 and v2. All the value in return vector should be unique.
+- Write a function ```std::vector<int> CPPLib::UnionVectors(std::vector<int> &input1 ,std::vector<int> &input2)``` that takes two vectors v1 and v2 and returns a new vector that is the **union** of the values in v1 and v2. All the value in return vector should be unique.
   - Example: input: (v1=[1, 2, 2, 3], v2=[3, 4, 4, 5]), output = [1, 2, 3, 4, 5]
 
 Write several tests using GTest for your function in [tests/q4student_test.cc](tests/q4_student_test.cc).
@@ -88,6 +101,24 @@ Please create your test cases and run the following command to verify the functi
 ```
 bazel test tests:q4_student_test
 ```
+Time Complexity:
+
+Part 1   ```void CPPLib::UniqeVectorNotBySet(std::vector<int> &input)```
+
+Since there are two loops here. In the worst case, suppose all the elements are unique in the vector. Then we need to traverse all the elements, and each elements are compared with all others. Hence, the time complexity is O(1).
+
+Part2  ```void CPPLib::UniqeVectorBySet(std::vector<int> &input)```
+
+Initializing a set takes O(1) to complete. And we have a for loop, stands for O(n) complexity. Inside the loop, we might access the set to insert element, which takes O(lgn). As a result, the time complexity is O(nlgn)
+
+Part3  ```void CPPLib::OddVector(std::vector<int> &input)```
+Only 1 for loop in the codes, and inside the loop is normal assignment operation, takes O(1). So the time complexity is O(n)
+
+Part4 ```void CPPLib::OddVector(std::vector<int> &input)``` 
+A for loop is used in the code. In the worst case, all the elements are even number and we need to erase them. Because the for loop starts from the end to beginning, so every erase will takes O (1). Hence, the complexity is O(n)
+
+Part5 ```std::vector<int> CPPLib::UnionVectors(std::vector<int> &input1 ,std::vector<int> &input2)``` 
+We take 1 for loop to analyse first. The for loop takes O(n) to operate, and inside the for loop, we have set related operations, which take O(lgn) time. Hence, the total time is O(nlgn) for a for loop section. Since the two loops are doing the same job, we just simply ignore one, so the time complexity is O(nlgn).
 
 ## Question 5 (15 Points. Easy)
 
@@ -96,7 +127,7 @@ bazel test tests:q4_student_test
   - Example: Input: “EE599”, Output: “995EE”, string is stricted to be alphanumeric.
   - You cannot use any new local variable of type *string or vector or array*, but you can create extra O(1) space, such as *int*. The reverse should happen **in place** (i.e. on the input string).
 
-- Write a function that takes a vector as an input and **reverses** its value. Write a simple function ```std::vector<int> CPPLib::ReverseVector_1(std::vector<int> input)``` in [cpplib.cc](src/lib/cpplib.cc)
+- Write a function that takes a vector as an input and **reverses** its value. Write a simple function ```std::vector<int> CPPLib::ReverseVector(std::vector<int> input)``` in [cpplib.cc](src/lib/cpplib.cc)
 
   - Example: Input: {1,2,3,4}, Output: {4,3,2,1}. 
   - Use of [stack](https://en.cppreference.com/w/cpp/container/stack) is needed.
@@ -109,6 +140,17 @@ For all of the three questions, write a test using GTest for your finction in [t
 ```
 bazel test tests:q5_student_test
 ```
+
+Time Complexity:
+
+Part1 ```void CPPLib::ReverseString(std::string &input)```
+We have a for loop in the code, which takes O(n) to run. Inside the loop, we have swap function which takes O(1) to operate. So total complexity is O(n).
+
+Part2```std::vector<int> CPPLib::ReverseVector(std::vector<int> input)``` 
+Under the else condition, we have for loop O(n) time. Under the for loop, we have push or pop functions, which take O(1) time. So the total complxity is O(n).
+
+Part3 ```void CPPLib::ToLower(std::string& )``` 
+Under the else condition, one for loop is implemented with O(n) time complexity. O(1) complxity operations are carried out under the for loop, so the total complexity is O(n).
 
 ## Question 6 (25 Points. Medium)
 
@@ -129,6 +171,13 @@ Please create your test cases and run the following command to verify the functi
 ```
 bazel test tests:q6_student_test
 ```
+
+Time Complexity:
+
+For the first for loop, we have O(n) complexity for the loop, and O(lgn) complexity for each map-related operations in that loop.
+For the second for loop, only simple value assignment statement are used, which take constant time O(1).
+Hence, the total complexity is O(nlgn).
+
 
 ## Question 7 (20 Points. Medium)
 
@@ -165,6 +214,11 @@ Please create your test cases and run the following command to verify the functi
 bazel test tests:q7_student_test
 ```
 
+Time Complexity:
+
+The for loop takes O(n) to run, and inside the for loop, we have map insert function which takes O(lgn). Hence, the total complexity is O(nlgn),
+
+
 ## Question 8 (20 Points. Medium)
 
  Write a function ```void kthPeek(std::vector<int> &input, int k);``` in [cpplib.cc](src/lib/cpplib.cc) that
@@ -182,3 +236,7 @@ Please create your test cases and run the following command to verify the functi
 ```
 bazel test tests:q8_student_test
 ```
+Time Complexity:
+The sort function takes O(nlgn) to complete.
+The for loop itself takes O(n) to complete, which statements inside that for loop take O(1) to operate. 
+Hence, the total time complexity is O(nlgn) + O(n) = O(nlgn).

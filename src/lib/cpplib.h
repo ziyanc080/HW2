@@ -4,6 +4,11 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <set>
+#include <ctype.h>
+#include <algorithm>
+#include <stack>
+#include <unordered_set>
 
 /**
  *  Example class used for GTest demo
@@ -11,7 +16,12 @@
 class CPPLib {
  public:
   //q1
-  // Please create your functions here.
+    int myfunction (int input1, int input2);
+    std::string myfunction (std::string input1, std::string input2);
+    std::string myfunction (int input1, std::string input2);
+    std::string myfunction (std::string input1, int input2);
+    
+    // Please create your functions here.
   //q3
   void SwapByRefernce(int &input1, int &input2);
   void SwapByPointer(int *input1, int *input2);
@@ -21,7 +31,7 @@ class CPPLib {
   void UniqeVectorBySet(std::vector<int> &input);
   void ReverseVector(std::vector<int> &input);
   void OddVector(std::vector<int> &input);
-  std::vector<int> UnionVectors(std::vector<int> &input1, std::vector<int> &input2);
+    std::vector<int> UnionVectors(std::vector<int> &input1, std::vector<int> &input2);
 
   //q5
   void ReverseString(std::string &input);
